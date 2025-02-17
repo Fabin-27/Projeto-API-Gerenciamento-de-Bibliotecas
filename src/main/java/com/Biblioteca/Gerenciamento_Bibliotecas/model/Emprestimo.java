@@ -1,12 +1,15 @@
 package com.Biblioteca.Gerenciamento_Bibliotecas.model;
 
-import jakarta.persistence.Column;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,35 +17,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "livro")
-@Table(name = "livros")
+@Entity(name = "emprestimo")
+@Table(name = "emprestimos")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 
-public class Livros {
-
+public class Emprestimo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private String titulo;
-
-	private String autor;
-
-	private String editora;
-
-	private Integer anoDePublicação;
-
-	@Column(unique = true)
-	private String iSBN;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "livro_id")
+	private Livro livro;
+	
+	private Date dataEmprestimo;
+	private Date dataDevolucao;
+	
 	@Enumerated(EnumType.STRING)
-	private TipoDeLivro categoria;
-
-	@Enumerated(EnumType.STRING)
-	private StatusDoLivro statusLivro;
+	private StatusDoEmprestimo statusEmprestimo;
+	
 
 }
