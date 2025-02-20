@@ -30,6 +30,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false)
 	private String nome;
 	
 	@Column(unique = true)
@@ -39,7 +40,10 @@ public class Cliente {
 	private String cpf;
 	
 	private String telefone;
+	
+	@Column(nullable = false)
 	private String endereço;
+	
 	private Date dataDeCadastro;
 	
 	@Enumerated(EnumType.STRING)
